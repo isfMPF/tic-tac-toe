@@ -3,12 +3,13 @@ import java.util.Scanner;
 public class Main {
 
     static Scanner in = null;
-    public static int p1Cor1 = 0;
-    public static int p1Cor2 = 0;
-    public static int p2Cor1 = 0;
-    public static int p2Cor2 = 0;
+    public static int p1Cor1;
+    public static int p1Cor2;
+    public static int p2Cor1;
+    public static int p2Cor2;
     public static String player1;
     public static String player2;
+    public static char[][] board;
 
     public static void main(String[] args) {
 
@@ -20,14 +21,13 @@ public class Main {
 
         boolean isPlayer1 = true;
 
-        char[][] board = new char[3][3];
+        board = new char[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = '-';
             }
         }
         drawBoard(board);
-
 
 
         while (true) {
@@ -49,7 +49,7 @@ public class Main {
                 isPlayer1 = false;
 
             } else {
-               inputDataPlayer2();
+                inputDataPlayer2();
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) {
                         if (board[i][j] == 'x' || board[i][j] == 'o') {
@@ -79,17 +79,44 @@ public class Main {
         }
     }
 
-    public static void inputDataPlayer1(){
-        System.out.print(player1 + " ваш ход. Вводите первую координату (1,2,3): ");
-        p1Cor1 = in.nextInt();
-        System.out.print(player1 + " ваш ход. Вводите вторую координату (1,2,3): ");
-        p1Cor2 = in.nextInt();
+    public static void inputDataPlayer1() {
+        do {
+            System.out.print(player1 + " ваш ход (x). Вводите первую координату (1, 2, 3): ");
+            p1Cor1 = in.nextInt();
+            System.out.print(player1 + " ваш ход (x). Вводите вторую координату (1, 2, 3): ");
+            p1Cor2 = in.nextInt();
+
+            if (p1Cor1 < 1 || p1Cor1 > 3 || p1Cor2 < 1 || p1Cor2 > 3) {
+                System.out.println("Координаты должны быть от 1 до 3. Введите заново.");
+                continue;
+            }
+
+
+            if (board[p1Cor1 - 1][p1Cor2 - 1] == 'x' || board[p1Cor1 - 1][p1Cor2 - 1] == 'o') {
+                System.out.println("Ячейка занята. Вводите заново координаты.");
+            } else {
+                break;
+            }
+        } while (true);
+
     }
 
-    public static void inputDataPlayer2(){
-        System.out.print(player2 + " ваш ход. Вводите первую координату (1,2,3): ");
-        p2Cor1 = in.nextInt();
-        System.out.print(player2 + " ваш ход. Вводите вторую координату (1,2,3): ");
-        p2Cor2 = in.nextInt();
+    public static void inputDataPlayer2() {
+        do {
+            System.out.print(player2 + " ваш ход (0). Вводите первую координату (1,2,3): ");
+            p2Cor1 = in.nextInt();
+            System.out.print(player2 + " ваш ход (0). Вводите вторую координату (1,2,3): ");
+            p2Cor2 = in.nextInt();
+            if (p2Cor1 < 1 || p2Cor1 > 3 || p2Cor2 < 1 || p2Cor2 > 3) {
+                System.out.println("Координаты должны быть от 1 до 3. Введите заново.");
+                continue;
+            }
+            if(board[p2Cor1 - 1][p2Cor2 - 1] == 'x' || board[p2Cor1 - 1][p2Cor2 - 1] == 'o'){
+                System.out.println("Ячейка занята. Вводите заново координаты");
+            }else {
+                break;
+            }
+        }while (true);
+
     }
 }
