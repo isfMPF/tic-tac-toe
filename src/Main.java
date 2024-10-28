@@ -10,6 +10,9 @@ public class Main {
     public static String player1;
     public static String player2;
     public static char[][] board;
+    public static int countX = 0;
+    public static int countO = 0;
+    public static boolean isPlayer1 = true;
 
     public static void main(String[] args) {
 
@@ -19,7 +22,6 @@ public class Main {
         System.out.print("Игрок 2, вводите своё имя: ");
         player2 = in.nextLine();
 
-        boolean isPlayer1 = true;
 
         board = new char[3][3];
         for (int i = 0; i < 3; i++) {
@@ -30,7 +32,7 @@ public class Main {
         drawBoard(board);
 
 
-        while (true) {
+        while (tracking()) {
             if (isPlayer1) {
                 inputDataPlayer1();
                 for (int i = 0; i < 3; i++) {
@@ -45,8 +47,9 @@ public class Main {
                         }
                     }
                 }
-
+                tracking();
                 isPlayer1 = false;
+
 
             } else {
                 inputDataPlayer2();
@@ -63,11 +66,19 @@ public class Main {
 
                     }
                 }
-
+                tracking();
                 isPlayer1 = true;
+
             }
             drawBoard(board);
         }
+
+        if (tracking()) {
+            System.out.println(player1 + " Вы выиграли игру!");
+        } else {
+            System.out.println(player2 + " Вы выиграли игру!");
+        }
+
     }
 
     public static void drawBoard(char[][] board) {
@@ -111,12 +122,16 @@ public class Main {
                 System.out.println("Координаты должны быть от 1 до 3. Введите заново.");
                 continue;
             }
-            if(board[p2Cor1 - 1][p2Cor2 - 1] == 'x' || board[p2Cor1 - 1][p2Cor2 - 1] == 'o'){
+            if (board[p2Cor1 - 1][p2Cor2 - 1] == 'x' || board[p2Cor1 - 1][p2Cor2 - 1] == 'o') {
                 System.out.println("Ячейка занята. Вводите заново координаты");
-            }else {
+            } else {
                 break;
             }
-        }while (true);
+        } while (true);
 
+    }
+
+    public static boolean tracking() {
+       return true;
     }
 }
